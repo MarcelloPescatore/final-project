@@ -10,9 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "generi")
 public class Genere {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Genere {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany(mappedBy = "videogiochi")
+    @ManyToMany(mappedBy = "generi")
     @JsonBackReference
     private List<Videogioco> videogiochi;
 

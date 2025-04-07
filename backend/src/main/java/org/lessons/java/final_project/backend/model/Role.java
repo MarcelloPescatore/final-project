@@ -1,11 +1,11 @@
 package org.lessons.java.final_project.backend.model;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,19 +14,18 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "console")
-public class Console {
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Il nome è obbligatorio")
-    @Column(nullable = false)
-    private String nome;
+    @NotBlank(message = "Il nome non può essere vuoto o null")
+    private String name;
 
-    @ManyToMany(mappedBy = "console")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @JsonBackReference
-    private List<Videogioco> videogiochi;
+    private Set<User> users;
 
     /**
      * @return Integer return the id
@@ -43,31 +42,31 @@ public class Console {
     }
 
     /**
-     * @return String return the nome
+     * @return String return the name
      */
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param nome the nome to set
+     * @param name the name to set
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return List<Videogioco> return the videogiochi
+     * @return Set<User> return the users
      */
-    public List<Videogioco> getVideogiochi() {
-        return videogiochi;
+    public Set<User> getUsers() {
+        return users;
     }
 
     /**
-     * @param videogiochi the videogiochi to set
+     * @param users the users to set
      */
-    public void setVideogiochi(List<Videogioco> videogiochi) {
-        this.videogiochi = videogiochi;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 }
