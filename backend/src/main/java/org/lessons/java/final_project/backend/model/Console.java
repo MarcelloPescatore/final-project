@@ -70,4 +70,9 @@ public class Console {
         this.videogiochi = videogiochi;
     }
 
+    @Override
+    public String toString(){
+        return String.format("%s", nome);
+    }
+
 }

@@ -71,4 +71,9 @@ public class Genere {
         this.videogiochi = videogiochi;
     }
 
+    @Override
+    public String toString(){
+        return String.format("%s", nome);
+    }
+
 }

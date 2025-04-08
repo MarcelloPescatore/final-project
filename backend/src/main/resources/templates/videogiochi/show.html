@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="~{ fragments :: styles }" />
+  <title>GameLand</title>
+</head>
+
+<body>
+  <div class="d-flex">
+    <th:block th:replace="~{fragments :: sidebar}" />
+
+    <main class="d-flex flex-column align-items-center">
+      <!-- title + search bar -->
+      <div class="d-flex flex-column gap-2 pb-5 pt-4 ">
+        <h2 class="fw-bold text-white">
+          Dettagli Videogioco -
+          <span class="fw-light text-white">"[[${videogioco.titolo}]]"</span>
+        </h2>
+      </div>
+
+      <!-- details videogame -->
+      <th:block th:replace="~{fragments :: videogame_details}" />
+
+    </main>
+  </div>
+  <th:block th:replace="~{fragments :: bootstrap-script}" />
+</body>
+
+</html>

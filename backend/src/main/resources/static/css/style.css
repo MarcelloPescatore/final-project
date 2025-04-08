@@ -1,0 +1,152 @@
+/* Impostazioni generali */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #191a1b;
+    --bg-secondary: #202020;
+    --cl-text: #D1D5DB;
+    --cl-border: #585858;
+}
+
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+a{
+    text-decoration: none;
+    color: var(--cl-text);
+}
+
+sidebar {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    height: 100vh;
+    overflow-y: hidden;
+    width: 16vw !important;
+    border-right: 1px solid var(--cl-border);
+
+    hr{
+        color: var(--cl-border);
+    }
+    
+    ul{
+        padding: 1rem 0 0 0 !important;
+        list-style: none;
+    
+        li{
+            color: var(--cl-text);
+            padding: 1rem 1rem; 
+            border-radius: 16px;
+            
+            a{
+                display: flex;
+                gap: 1rem;
+            }
+        }
+
+    }
+
+    li:hover{
+        background-color: var(--cl-border);
+    }
+    
+    span, i{
+        font-size: 20px;
+    }
+
+    #user_group{
+        span, i{
+            color: var(--cl-text);
+            font-size: 18px;
+        }
+    }
+}
+
+main {
+    background-color: var(--bg-primary);
+    padding: 1.5rem 2rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 100vh;
+    width: calc(100vw - 16vw);
+
+    .form-control{
+        background-color: transparent !important;
+        border: 1px solid var(--cl-border) !important;
+        color: white !important;
+
+        &::placeholder{
+            color: var(--cl-text);
+        }
+    }
+
+    table {
+        background-color: transparent !important;
+
+        th{
+            font-size: 20px;
+        }
+    
+        td, th{
+            padding: 1rem 1rem 1rem 1rem;
+            color: var(--cl-text) !important;
+            border-bottom: 1px solid var(--cl-border);
+        }
+    }
+
+    #add_button{
+        border: 1px solid var(--cl-border);
+
+        a{
+            font-weight: 600;
+            color: var(--cl-text);
+        }
+    }
+
+    #add_button:hover{
+        background-color: green;
+
+        a{
+            color: white;
+        }
+    }
+
+    #voto{
+        padding: 0 2rem;
+    }
+
+    .list-group-item{
+        background-color: transparent !important;
+        font-size: 18px;
+        color: var(--cl-text);
+        border-color: var(--cl-border);
+    }
+}
+
+
+/* Responsività: Imposta la sidebar su schermi piccoli */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    main {
+        width: 100%;
+    }
+}
