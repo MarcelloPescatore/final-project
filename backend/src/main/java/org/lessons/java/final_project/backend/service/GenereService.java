@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.java.final_project.backend.model.Genere;
+import org.lessons.java.final_project.backend.model.Videogioco;
 import org.lessons.java.final_project.backend.repository.GenereRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,13 @@ public class GenereService {
     }
 
     public void deleteById(Integer id) {
-        Genere genere = getById(id);
+        Genere genereToDelete = getById(id);
 
-        genereRepository.delete(genere);
+        for (Videogioco linkedVideogioco : genereToDelete.getVideogiochi()) {
+            linkedVideogioco.getGeneri().remove(genereToDelete);
+        }
+
+        genereRepository.delete(genereToDelete);
     }
 
 }

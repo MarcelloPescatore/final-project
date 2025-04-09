@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.java.final_project.backend.model.Console;
+import org.lessons.java.final_project.backend.model.Videogioco;
 import org.lessons.java.final_project.backend.repository.ConsoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,12 @@ public class ConsoleService {
     }
 
     public void deleteById(Integer id) {
-        Console console = getById(id);
+        Console consoleToDelete = getById(id);
 
-        consoleRepository.delete(console);
+        for (Videogioco linkedVideogioco : consoleToDelete.getVideogiochi()) {
+            linkedVideogioco.getConsole().remove(consoleToDelete);
+        }
+
+        consoleRepository.delete(consoleToDelete);
     }
 }

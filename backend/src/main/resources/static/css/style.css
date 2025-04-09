@@ -133,6 +133,25 @@ main {
     }
 }
 
+#videogioco-form, #genere-form, #console-form{
+    span{
+        color: var(--cl-text);
+    }
+
+    label{
+        color: var(--cl-text);
+    }
+    
+    input::placeholder{
+        color: var(--cl-text) !important;
+    }
+
+    #voto{
+        padding: 6px 12px !important;
+    }
+}
+
+
 
 /* Responsività: Imposta la sidebar su schermi piccoli */
 @media (max-width: 768px) {
@@ -149,4 +168,6 @@ main {
     main {
         width: 100%;
     }
+
+    
 }

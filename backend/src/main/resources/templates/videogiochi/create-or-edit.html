@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="~{ fragments :: styles }" />
+  <title>GameLand - Videogiochi</title>
+</head>
+
+<body>
+  <div class="d-flex">
+    <th:block th:replace="~{fragments :: sidebar}" />
+
+    <main>
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center py-4">
+        <h2 class="fw-bold text-white">Aggiungi un Videogioco</h2>
+      </div>
+
+      <!-- list of videogames -->
+      <th:block th:replace="~{fragments :: VideogiocoForm}" />
+    </main>
+  </div>
+  <th:block th:replace="~{fragments :: bootstrap-script}" />
+</body>
+
+</html>

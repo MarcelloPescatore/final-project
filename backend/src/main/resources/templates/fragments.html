@@ -10,6 +10,142 @@
 </head>
 
 <body>
+
+    <!-- form create or edit Videogioco -->
+    <th:block th:fragment="VideogiocoForm">
+        <form id="videogioco-form"
+            th:action="${edit} ? @{|/videogiochi/update/${videogioco.id}|} : @{/videogiochi/create}" method="post"
+            th:object="${videogioco}">
+
+            <input type="hidden" name="aggiunto_il" value="${videogioco.aggiuntoIl}" th:field="*{aggiuntoIl}" />
+
+            <!-- Nome -->
+            <div class="mb-3">
+                <label for="titolo" class="form-label">Titolo</label>
+                <input type="text" id="titolo" name="titolo" class="form-control" th:field="*{titolo}"
+                    th:errorclass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></div>
+            </div>
+
+            <!-- Descrizione -->
+            <div class="mb-3">
+                <label for="descrizione" class="form-label">Descrizione</label>
+                <textarea id="descrizione" name="descrizione" class="form-control" th:field="*{descrizione}"
+                    th:errorclass="is-invalid"></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
+                </div>
+            </div>
+
+            <!-- Foto URL -->
+            <div class="mb-3">
+                <label for="copertinaUrl" class="form-label">URL Copertina</label>
+                <input type="url" id="copertinaUrl" name="copertinaUrl" class="form-control" th:field="*{copertinaUrl}"
+                    th:errorclass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('copertinaUrl')}" th:errors="*{copertinaUrl}">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <!-- Anno di uscita -->
+                <div class="mb-3 col-6">
+                    <label for="dataUscita" class="form-label">Data di uscita</label>
+                    <input type="date" id="dataUscita" name="dataUscita" class="form-control" th:field="*{dataUscita}"
+                        th:errorclass="is-invalid" required>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}">
+                    </div>
+                </div>
+
+                <!-- voto -->
+                <div class="mb-3 col-5">
+                    <label for="voto" class="form-label">Voto</label>
+                    <input type="number" id="voto" name="voto" class="form-control" th:field="*{voto}"
+                        th:errorclass="is-invalid" step="0.01" max="5" min="0" required>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></div>
+                </div>
+            </div>
+
+            <!-- Generi -->
+            <div class="mb-3">
+                <span>Generi</span>
+                <div class="d-flex flex-wrap">
+                    <div class="single-ingredient form-check mt-2 col-2" th:each="genere : ${generi}">
+                        <div class="d-flex gap-2">
+                            <input type="checkbox" th:id="|genere-${genere.id}|" th:field="${videogioco.generi}"
+                                th:value="${genere.id}" th:checked="${videogioco?.generi?.contains(genere)}">
+                            <label th:for="|genere-${genere.id}|" class="form-check-label " th:text="${genere.nome}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console -->
+            <div class="mb-3">
+                <span>Console</span>
+                <div class="d-flex flex-wrap">
+                    <div class="single-ingredient form-check mt-2 col-2" th:each="console : ${console}">
+                        <div class="d-flex gap-2">
+                            <input type="checkbox" th:id="|console-${console.id}|" th:field="${videogioco.console}"
+                                th:value="${console.id}" th:checked="${videogioco?.generi?.contains(console)}">
+                            <label th:for="|console-${console.id}|" class="form-check-label"
+                                th:text="${console.nome}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pulsanti -->
+            <div class="mt-5 d-flex justify-content-end gap-4">
+                <button type="submit" class="btn btn-success"
+                    th:text="${edit} ? 'Modifica Videogioco' : 'Aggiungi Videogioco'"></button>
+                <a th:href="@{/videogiochi}" class="btn btn-warning">Annulla</a>
+            </div>
+        </form>
+    </th:block>
+
+    <!-- form create or edit Console-->
+    <th:block th:fragment="ConsoleForm">
+        <form id="console-form" th:action="${edit} ? @{|/console/update/${console.id}|} : @{/console/create}"
+            method="post" th:object="${console}">
+
+            <!-- Nome -->
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}"
+                    th:errorclass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+
+            <!-- Pulsanti -->
+            <div class="mt-5 d-flex justify-content-end gap-4">
+                <button type="submit" class="btn btn-success"
+                    th:text="${edit} ? 'Modifica Console' : 'Aggiungi Console'"></button>
+                <a th:href="@{/console}" class="btn btn-warning">Annulla</a>
+            </div>
+        </form>
+    </th:block>
+
+    <!-- form create or edit Genere -->
+    <th:block th:fragment="GenereForm">
+        <form id="genere-form" th:action="${edit} ? @{|/generi/update/${genere.id}|} : @{/generi/create}" method="post"
+            th:object="${genere}">
+
+            <!-- Nome -->
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}"
+                    th:errorclass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+
+            <!-- Pulsanti -->
+            <div class="mt-5 d-flex justify-content-end gap-4">
+                <button type="submit" class="btn btn-success"
+                    th:text="${edit} ? 'Modifica Genere' : 'Aggiungi Genere'"></button>
+                <a th:href="@{/generi}" class="btn btn-warning">Annulla</a>
+            </div>
+        </form>
+    </th:block>
+
     <!-- sidebar -->
     <th:block th:fragment="sidebar">
         <sidebar class="d-flex flex-column justify-content-between">
@@ -92,6 +228,7 @@
             <thead>
                 <tr>
                     <th><span>Titolo</span></th>
+                    <th>Data di uscita</th>
                     <th id="voto">Voto</th>
                     <th>Genere</th>
                     <th>Piattaforme</th>
@@ -102,21 +239,50 @@
             <tbody>
                 <tr th:each="videogioco : ${videogiochi}" th:object="${videogioco}">
                     <td>[[*{titolo}]]</td>
+                    <td>[[*{dataUscita}]]</td>
                     <td id="voto">[[*{voto}]]</td>
                     <td>[[*{generi}]]</td>
                     <td>[[*{console}]]</td>
                     <td>[[*{descrizione}]]</td>
                     <td class="text-end">
-
                         <a class="btn btn-primary me-2" th:href="@{/videogiochi/{id}(id=*{id})}">
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a class="btn btn-warning me-2">
+                        <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
                             <i class="bi bi-magic "></i>
                         </a>
-                        <a class="btn btn-danger">
+                        <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${videogioco.id}"
+                            class="btn btn-danger">
                             <i class="bi bi-trash3-fill text-white"></i>
-                        </a>
+                        </button>
+
+                        <!-- modale -->
+                        <div class="modal fade" th:id="'delete-modal-' + ${videogioco.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        Sei sicuro di voler eliminare la videogioco
+                                        <strong>"[[${videogioco.titolo}]]"</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning"
+                                            data-bs-dismiss="modal">Annulla</button>
+                                        <form th:action="@{/videogiochi/delete/{id}(id=${videogioco.id})}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger">
+                                                Elimina
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -138,12 +304,41 @@
                     <td>[[*{id}]]</td>
                     <td>[[*{nome}]]</td>
                     <td class="text-end">
-                        <button class="btn btn-warning me-2">
+                        <a th:href="@{/generi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
                             Modifica
-                        </button>
-                        <button class="btn btn-danger">
+                        </a>
+                        <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${genere.id}"
+                            class="btn btn-danger">
                             Elimina
                         </button>
+
+                        <!-- modale -->
+                        <div class="modal fade" th:id="'delete-modal-' + ${genere.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        Sei sicuro di voler eliminare la genere
+                                        <strong>"[[${genere.nome}]]"</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning"
+                                            data-bs-dismiss="modal">Annulla</button>
+                                        <form th:action="@{/generi/delete/{id}(id=${genere.id})}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger">
+                                                Elimina
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -165,12 +360,40 @@
                     <td>[[*{id}]]</td>
                     <td>[[*{nome}]]</td>
                     <td class="text-end">
-                        <button class="btn btn-warning me-2">
+                        <a th:href="@{/console/update/{id}(id=*{id})}" class="btn btn-warning me-2">
                             Modifica
-                        </button>
-                        <button class="btn btn-danger">
+                        </a>
+                        <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${console.id}"
+                            class="btn btn-danger">
                             Elimina
                         </button>
+
+                        <!-- modale -->
+                        <div class="modal fade" th:id="'delete-modal-' + ${console.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        Sei sicuro di voler eliminare la console <strong>"[[${console.nome}]]"</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning"
+                                            data-bs-dismiss="modal">Annulla</button>
+                                        <form th:action="@{/console/delete/{id}(id=${console.id})}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger">
+                                                Elimina
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -182,7 +405,7 @@
         <div th:object="${videogioco}" class="d-flex gap-5">
             <!-- image -->
             <div>
-                <img class="rounded" src="https://placehold.co/400x400" th:alt="*{copertina_url}">
+                <img class="rounded" src="https://placehold.co/400x400" th:alt="*{copertinaUrl}">
             </div>
 
             <!-- info -->
@@ -205,21 +428,50 @@
                         [[*{console}]]
                     </li>
                     <li class="list-group-item">
-                        <strong class="fs-5 me-2">Anno di uscita:</strong>
-                        [[*{anno_uscita}]]
+                        <strong class="fs-5 me-2">Data di uscita:</strong>
+                        [[*{dataUscita}]]
                     </li>
                     <li class="list-group-item">
                         <strong class="fs-5 me-2">Aggiunto il:</strong>
-                        [[*{aggiunto_il}]]
+                        [[*{aggiuntoIl}]]
                     </li>
                 </ul>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-warning me-2">
+                    <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
                         Modifica
-                    </button>
-                    <button class="btn btn-danger">
-                        Elimina
-                    </button>
+                    </a>
+                    <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${videogioco.id}"
+                            class="btn btn-danger">
+                            <i class="bi bi-trash3-fill text-white"></i>
+                        </button>
+
+                        <!-- modale -->
+                        <div class="modal fade" th:id="'delete-modal-' + ${videogioco.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        Sei sicuro di voler eliminare la videogioco
+                                        <strong>"[[${videogioco.titolo}]]"</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning"
+                                            data-bs-dismiss="modal">Annulla</button>
+                                        <form th:action="@{/videogiochi/delete/{id}(id=${videogioco.id})}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger">
+                                                Elimina
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
 

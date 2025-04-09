@@ -40,19 +40,20 @@ public class Videogioco {
 
     @NotBlank(message = "URL è obbligatorio")
     @URL(message = "Inserisci un URL valido")
-    private String copertina_url;
+    @Column(name = "copertina_url")
+    private String copertinaUrl;
 
     @Max(value = 5, message = "Il voto non può superare 5.00")
     @Column(precision = 3, scale = 2, nullable = true)
     private BigDecimal voto;
 
-    @Column(name = "anno_uscita")
+    @Column(name = "data_uscita")
     @PastOrPresent(message = "L'anno di uscita non può essere successivo all'anno corrente")
-    private LocalDate anno_uscita;
+    private LocalDate dataUscita;
 
     @CreationTimestamp
-    @Column(nullable = false)
-    private LocalDateTime aggiunto_il;
+    @Column(nullable = false, name = "aggiunto_il")
+    private LocalDateTime aggiuntoIl;
 
     @ManyToMany
     @JoinTable(name = "genere_videogioco", joinColumns = @JoinColumn(name = "videogioco_id"), inverseJoinColumns = @JoinColumn(name = "genere_id"))
@@ -64,7 +65,7 @@ public class Videogioco {
 
     @Override
     public String toString(){
-        return String.format("Videogioco: %s - %s", titolo, anno_uscita);
+        return String.format("Videogioco: %s - %s", titolo, dataUscita);
     }
 
     /**
@@ -112,15 +113,15 @@ public class Videogioco {
     /**
      * @return String return the copertina_url
      */
-    public String getCopertina_url() {
-        return copertina_url;
+    public String getCopertinaUrl() {
+        return copertinaUrl;
     }
 
     /**
-     * @param copertina_url the copertina_url to set
+     * @param copertinaUrl the copertinaUrl to set
      */
-    public void setCopertina_url(String copertina_url) {
-        this.copertina_url = copertina_url;
+    public void setCopertinaUrl(String copertinaUrl) {
+        this.copertinaUrl = copertinaUrl;
     }
 
     /**
@@ -138,31 +139,31 @@ public class Videogioco {
     }
 
     /**
-     * @return LocalDate return the anno_uscita
+     * @return LocalDate return the dataUscita
      */
-    public LocalDate getAnno_uscita() {
-        return anno_uscita;
+    public LocalDate getDataUscita() {
+        return dataUscita;
     }
 
     /**
-     * @param anno_uscita the anno_uscita to set
+     * @param dataUscita the dataUscita to set
      */
-    public void setAnno_uscita(LocalDate anno_uscita) {
-        this.anno_uscita = anno_uscita;
+    public void setDataUscita(LocalDate dataUscita) {
+        this.dataUscita = dataUscita;
     }
 
     /**
      * @return LocalDateTime return the aggiunto_il
      */
-    public LocalDateTime getAggiunto_il() {
-        return aggiunto_il;
+    public LocalDateTime getAggiuntoIl() {
+        return aggiuntoIl;
     }
 
     /**
-     * @param aggiunto_il the aggiunto_il to set
+     * @param aggiuntoIl the aggiuntoIl to set
      */
-    public void setAggiunto_il(LocalDateTime aggiunto_il) {
-        this.aggiunto_il = aggiunto_il;
+    public void setAggiuntoIl(LocalDateTime aggiuntoIl) {
+        this.aggiuntoIl = aggiuntoIl;
     }
 
     /**
