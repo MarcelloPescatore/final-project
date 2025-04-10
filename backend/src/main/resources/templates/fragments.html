@@ -15,7 +15,7 @@
     <th:block th:fragment="VideogiocoForm">
         <form id="videogioco-form"
             th:action="${edit} ? @{|/videogiochi/update/${videogioco.id}|} : @{/videogiochi/create}" method="post"
-            th:object="${videogioco}">
+            th:object="${videogioco}" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
 
             <input type="hidden" name="aggiunto_il" value="${videogioco.aggiuntoIl}" th:field="*{aggiuntoIl}" />
 
@@ -105,7 +105,7 @@
     <!-- form create or edit Console-->
     <th:block th:fragment="ConsoleForm">
         <form id="console-form" th:action="${edit} ? @{|/console/update/${console.id}|} : @{/console/create}"
-            method="post" th:object="${console}">
+            method="post" th:object="${console}" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
 
             <!-- Nome -->
             <div class="mb-3">
@@ -127,7 +127,7 @@
     <!-- form create or edit Genere -->
     <th:block th:fragment="GenereForm">
         <form id="genere-form" th:action="${edit} ? @{|/generi/update/${genere.id}|} : @{/generi/create}" method="post"
-            th:object="${genere}">
+            th:object="${genere}" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
 
             <!-- Nome -->
             <div class="mb-3">
@@ -151,19 +151,19 @@
         <sidebar class="d-flex flex-column justify-content-between">
             <div>
                 <!-- User -->
-                <div class=" d-flex justify-content-between" id="user_group">
+                <div class=" d-flex flex-column" id="user_group">
                     <!-- user information -->
-                    <div class="d-flex gap-2">
+                    <div class="d-flex flex-column gap-2">
                         <div>
-                            <span>Ciao, Utente</span>
+                            <p class="text-white fs-4 m-0">
+                                Ciao, <span class="fw-bold fs-4" sec:authentication="name"></span>
+                            </p>
                         </div>
-                    </div>
-
-                    <!-- logout -->
-                    <div>
-                        <a th:href="@{/logout}">
-                            <i class="bi bi-door-open  "></i>
-                        </a>
+                        <div>     
+                            <p class="text-white  fw-bold fs-6 m-0">
+                                Ruolo: <span class=" fs-6 fw-light" sec:authentication="principal.authorities[0].authority"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -200,7 +200,20 @@
                             </div>
                         </a>
                     </li>
-
+                </ul>
+                <hr>
+                <!-- logout -->
+                <ul class="m-0 p-0">
+                    <li>
+                        <a th:href="@{/logout}">
+                            <div>
+                                <i class="bi bi-door-open  "></i>
+                            </div>
+                            <div>
+                                <span>Logout</span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -245,24 +258,27 @@
                     <td>[[*{console}]]</td>
                     <td>[[*{descrizione}]]</td>
                     <td class="text-end">
-                        <a class="btn btn-primary me-2" th:href="@{/videogiochi/{id}(id=*{id})}">
+                        <a class="btn btn-primary me-2" th:href="@{/videogiochi/{id}(id=*{id})}"
+                            sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
+                        <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2"
+                            sec:authorize="hasAuthority('ADMIN')">
                             <i class="bi bi-magic "></i>
                         </a>
                         <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${videogioco.id}"
-                            class="btn btn-danger">
+                            class="btn btn-danger" sec:authorize="hasAuthority('ADMIN')">
                             <i class="bi bi-trash3-fill text-white"></i>
                         </button>
 
                         <!-- modale -->
                         <div class="modal fade" th:id="'delete-modal-' + ${videogioco.id}" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                            <div class="modal-dialog modal-dialog-centered mx-auto">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione
+                                        </h1>
                                         <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -304,21 +320,23 @@
                     <td>[[*{id}]]</td>
                     <td>[[*{nome}]]</td>
                     <td class="text-end">
-                        <a th:href="@{/generi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
+                        <a th:href="@{/generi/update/{id}(id=*{id})}" class="btn btn-warning me-2"
+                            sec:authorize="hasAuthority('ADMIN')">
                             Modifica
                         </a>
                         <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${genere.id}"
-                            class="btn btn-danger">
+                            class="btn btn-danger" sec:authorize="hasAuthority('ADMIN')">
                             Elimina
                         </button>
 
                         <!-- modale -->
                         <div class="modal fade" th:id="'delete-modal-' + ${genere.id}" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                            <div class="modal-dialog modal-dialog-centered mx-auto">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione
+                                        </h1>
                                         <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -329,8 +347,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-warning"
                                             data-bs-dismiss="modal">Annulla</button>
-                                        <form th:action="@{/generi/delete/{id}(id=${genere.id})}"
-                                            method="post">
+                                        <form th:action="@{/generi/delete/{id}(id=${genere.id})}" method="post">
                                             <button type="submit" class="btn btn-danger">
                                                 Elimina
                                             </button>
@@ -360,21 +377,23 @@
                     <td>[[*{id}]]</td>
                     <td>[[*{nome}]]</td>
                     <td class="text-end">
-                        <a th:href="@{/console/update/{id}(id=*{id})}" class="btn btn-warning me-2">
+                        <a th:href="@{/console/update/{id}(id=*{id})}" class="btn btn-warning me-2"
+                            sec:authorize="hasAuthority('ADMIN')">
                             Modifica
                         </a>
                         <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${console.id}"
-                            class="btn btn-danger">
+                            class="btn btn-danger" sec:authorize="hasAuthority('ADMIN')">
                             Elimina
                         </button>
 
                         <!-- modale -->
                         <div class="modal fade" th:id="'delete-modal-' + ${console.id}" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered mx-auto" >
+                            <div class="modal-dialog modal-dialog-centered mx-auto">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione
+                                        </h1>
                                         <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -384,8 +403,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-warning"
                                             data-bs-dismiss="modal">Annulla</button>
-                                        <form th:action="@{/console/delete/{id}(id=${console.id})}"
-                                            method="post">
+                                        <form th:action="@{/console/delete/{id}(id=${console.id})}" method="post">
                                             <button type="submit" class="btn btn-danger">
                                                 Elimina
                                             </button>
@@ -437,41 +455,41 @@
                     </li>
                 </ul>
                 <div class="d-flex justify-content-end">
-                    <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2">
+                    <a th:href="@{/videogiochi/update/{id}(id=*{id})}" class="btn btn-warning me-2"
+                        sec:authorize="hasAuthority('ADMIN')">
                         Modifica
                     </a>
                     <button data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${videogioco.id}"
-                            class="btn btn-danger">
-                            <i class="bi bi-trash3-fill text-white"></i>
-                        </button>
+                        class="btn btn-danger" sec:authorize="hasAuthority('ADMIN')">
+                        <i class="bi bi-trash3-fill text-white"></i>
+                    </button>
 
-                        <!-- modale -->
-                        <div class="modal fade" th:id="'delete-modal-' + ${videogioco.id}" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered mx-auto" >
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
-                                        <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-black">
-                                        Sei sicuro di voler eliminare la videogioco
-                                        <strong>"[[${videogioco.titolo}]]"</strong>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-warning"
-                                            data-bs-dismiss="modal">Annulla</button>
-                                        <form th:action="@{/videogiochi/delete/{id}(id=${videogioco.id})}"
-                                            method="post">
-                                            <button type="submit" class="btn btn-danger">
-                                                Elimina
-                                            </button>
-                                        </form>
-                                    </div>
+                    <!-- modale -->
+                    <div class="modal fade" th:id="'delete-modal-' + ${videogioco.id}" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered mx-auto">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5  text-black" id="exampleModalLabel">⚠️ Attenzione</h1>
+                                    <button type="button" class="btn-close  text-black" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-black">
+                                    Sei sicuro di voler eliminare la videogioco
+                                    <strong>"[[${videogioco.titolo}]]"</strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning"
+                                        data-bs-dismiss="modal">Annulla</button>
+                                    <form th:action="@{/videogiochi/delete/{id}(id=${videogioco.id})}" method="post">
+                                        <button type="submit" class="btn btn-danger">
+                                            Elimina
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
 

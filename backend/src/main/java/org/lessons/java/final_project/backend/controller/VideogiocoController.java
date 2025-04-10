@@ -7,6 +7,7 @@ import org.lessons.java.final_project.backend.service.ConsoleService;
 import org.lessons.java.final_project.backend.service.GenereService;
 import org.lessons.java.final_project.backend.service.VideogiocoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,7 +37,7 @@ public class VideogiocoController {
     /* read all */
     @GetMapping
     public String getVideogiocoList(@RequestParam(name = "titolo", required = false) String titolo,
-            Model model) {
+            Authentication authentication, Model model) {
         List<Videogioco> videogiochi;
 
         if (titolo != null && !titolo.isEmpty()) {
@@ -47,8 +48,7 @@ public class VideogiocoController {
 
         model.addAttribute("videogiochi", videogiochi);
         model.addAttribute("generi", genereService.findAll());
-        /* username */
-
+        model.addAttribute("username", authentication.getName());
         return "videogiochi/index";
     }
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="~{ fragments :: styles }" />
+  <title>GameLand - HomePage</title>
+</head>
+
+<body>
+  <!-- immagine di sfondo oscurata -->
+  <img th:src="@{/images/sfondo.jpg}" alt="sfondo" id="sfondo">
+
+  <div class="d-flex flex-column justify-content-center align-items-center welcome">
+    <h1 class="text-white">Welcome on GameLand</h1>
+    <a th:href="@{/login}" class="btn text-white mt-3">Entra</a>
+  </div>
+  <th:block th:replace="~{fragments :: bootstrap-script}" />
+</body>
+
+</html>
