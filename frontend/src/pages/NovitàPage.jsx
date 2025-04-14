@@ -53,7 +53,7 @@ export default function NovitàPage() {
                 {/* videogames list */}
                 <div className='d-flex mt-4 col-12 '>
                     {/* card */}
-                    <div className='d-flex gap-5' >
+                    <div className='d-flex flex-wrap gap-5' >
                         {
                             giochiRecenti.map((videogioco) => (
                                 <div className="card col-5 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >

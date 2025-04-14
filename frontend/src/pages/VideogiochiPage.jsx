@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState, useEffect } from 'react'
 import DataContext from '../context/DataContext'
+import logo from '../assets/images/logo.png'
 
 export default function VideogiochiPage() {
     const { data, loading, error } = useContext(DataContext);
@@ -9,7 +10,12 @@ export default function VideogiochiPage() {
     });;
     const [inputText, setInputText] = useState('');
     const [searchText, setSearchText] = useState('');
+    const [numeroMostrati, setNumeroMostrati] = useState(10);
 
+    /* mostra altri */
+    const mostraAltri = () => {
+        setNumeroMostrati(prev => prev + 20);
+    };
 
     /* funzione per votazione in stelle */
     const renderStars = (vote) => {
@@ -216,11 +222,11 @@ export default function VideogiochiPage() {
                     </form>
 
                     {/* card */}
-                    <div className='d-flex mx-5 gap-5' >
+                    <div className='d-flex mx-5 gap-5 flex-wrap' >
                         {
-                            videogiochiFiltrati.map((videogioco) => (
+                            videogiochiFiltrati.slice(0, numeroMostrati).map((videogioco) => (
                                 <div className="card col-4 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >
-                                    <img src={videogioco.copertinaUrl} alt="..." className='rounded' />
+                                    <img src={videogioco.copertinaUrl ? videogioco.copertinaUrl : logo } alt="Copertina videogioco" className='rounded' />
                                     <div className="card-body d-flex flex-column  justify-content-end py-4">
                                         <div>
                                             <h5 className="card-title">{videogioco.titolo}</h5>
@@ -232,6 +238,15 @@ export default function VideogiochiPage() {
                             ))
                         }
                     </div>
+                    {
+                        numeroMostrati < videogiochiFiltrati.length && (
+                            <div className='d-flex justify-content-center w-100 mt-4'>
+                                <button className='btn btn-outline-primary' onClick={mostraAltri}>
+                                    Mostra altri 20 risultati
+                                </button>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         ))

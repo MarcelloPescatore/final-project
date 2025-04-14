@@ -20,9 +20,6 @@ export default function AppHeader() {
                     <li>
                         <a href="/novità">Novità</a>
                     </li>
-                    <li>
-                        <a href="/contatti">Contatti</a>
-                    </li>
                 </ul>
             </div>
         </header>

@@ -31,7 +31,7 @@ export default function HomePage() {
                 <h2>Benvenuto su GameLand</h2>
             </div>
 
-            <div className="container position-relative z-2" id='catalogo'>
+            <div className="mx-5 position-relative z-2" id='catalogo'>
                 {loading ? (
                     <div className="d-flex justify-content-center align-items-center vh-100">
                         <div className="spinner-border text-primary" role="status">
@@ -54,7 +54,7 @@ export default function HomePage() {
                         {/* videogames list */}
                         <div className='d-flex flex-column mt-4 col-12 '>
                             {/* card */}
-                            <div className='d-flex gap-5' >
+                            <div className='d-flex justify-content-center flex-wrap gap-5' >
                                 {
                                     data.slice(0, 10).map((videogioco) => (
                                         <div className="card col-5 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >
@@ -72,11 +72,11 @@ export default function HomePage() {
                             </div>
 
                             {/* mostra di più */}
-                            <button className='btn align-self-center btn-outline-primary col-2 mt-5'>
-                                <a href="/videogiochi" className='fw-bold'>
+                            <a href="/videogiochi" className='fw-bold'>
+                                <button className='btn align-self-center btn-outline-primary col-2 mt-5'>
                                     Vedi tutti
-                                </a>
-                            </button>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 )}
