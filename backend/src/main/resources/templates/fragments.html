@@ -3,6 +3,7 @@
 
 <head>
     <th:block th:fragment="styles">
+        <link rel="icon" type="image/png" th:href="@{/images/logo.png}" />
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}" />
         <link th:rel="stylesheet" th:href="@{/css/style.css}">
@@ -150,18 +151,25 @@
     <th:block th:fragment="sidebar">
         <sidebar class="d-flex flex-column justify-content-between">
             <div>
+                <!-- Logo -->
+                <div class="text-center">
+                    <a th:href="@{/videogiochi}">
+                        <img th:src="@{/images/logo.png}" alt="logo">
+                    </a>
+                </div>
                 <!-- User -->
                 <div class=" d-flex flex-column" id="user_group">
                     <!-- user information -->
                     <div class="d-flex flex-column gap-2">
                         <div>
-                            <p class="text-white fs-4 m-0">
-                                Ciao, <span class="fw-bold fs-4" sec:authentication="name"></span>
+                            <p class="text-white fs-6 m-0">
+                                Ciao, <span class="fw-bold fs-6" sec:authentication="name"></span>
                             </p>
                         </div>
-                        <div>     
+                        <div>
                             <p class="text-white  fw-bold fs-6 m-0">
-                                Ruolo: <span class=" fs-6 fw-light" sec:authentication="principal.authorities[0].authority"></span>
+                                Ruolo: <span class=" fs-6 fw-light"
+                                    sec:authentication="principal.authorities[0].authority"></span>
                             </p>
                         </div>
                     </div>
