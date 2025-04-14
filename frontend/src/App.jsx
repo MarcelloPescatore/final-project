@@ -1,12 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { DataProvider } from "./context/DataContext";
+import Layout from "./pages/Layout";
+import HomePage from "./pages/HomePage";
+import NotFound from "./pages/NotFound";
+import VideogiochiPage from "./pages/VideogiochiPage"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css'
 
 function App() {
 
   return (
-     <></>
+    <DataProvider >
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/videogiochi" element={<VideogiochiPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </DataProvider>
   )
 }
 

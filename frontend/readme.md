@@ -1,12 +1,21 @@
-# React + Vite
+// NAVBAR
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- LOGO                 GIOCHI / NOVITÀ / CONTATTI
 
-Currently, two official plugins are available:
+//HOMEPAGE
+- Jumbotron con testo di benvenuto 
+- i giochi con la votazione più alta
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+// PAGINA GIOCHI
+- pagina in cui mostrerò le card dei primi 30 giochi, con un tasto mostra altro, sulla sinistra una sidebar dove applicare dei filtri per genere e console.
+- una search bar per filtrare le card mostrate
 
-## Expanding the ESLint configuration
+// PAGINA GIOCO
+- pagina in cui mostro i dettagli del gioco selezionato
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+// PAGINA NOVITÀ 
+- card più dettagliate, solo i 6 giochi appena usciti, se clicchi ti porta alla pagina dettaglio 
+
+// PAGINA CONTATTI
+- una lista di contatti e un form non funzionante
+
