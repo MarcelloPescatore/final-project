@@ -17,7 +17,10 @@ public class SecurityConfiguration {
     @Bean
     @SuppressWarnings("removal")
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests()
+        http
+            .cors()
+            .and()
+            .authorizeHttpRequests()
                 .requestMatchers("/videogiochi/create", "/videogiochi/update/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/videogiochi/**").hasAuthority("ADMIN")
                 .requestMatchers("/generi/create", "/generi/update/**").hasAuthority("ADMIN")
