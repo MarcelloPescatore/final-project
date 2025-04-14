@@ -12,13 +12,13 @@ export default function AppHeader() {
             <div>
                 <ul className='d-flex gap-4 align-items-center m-0 p-0'>
                     <li>
-                        <a className='btn' href="/videogiochi">Giochi</a>
+                        <a className='' href="/videogiochi">Giochi</a>
                     </li>
                     <li>
-                        <a className='btn' href="/novità">Novità</a>
+                        <a className='' href="/novità">Novità</a>
                     </li>
                     <li>
-                        <a className='btn' href="/contatti">Contatti</a>
+                        <a className='' href="/contatti">Contatti</a>
                     </li>
                 </ul>
             </div>

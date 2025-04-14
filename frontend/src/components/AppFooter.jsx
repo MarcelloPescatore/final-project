@@ -2,8 +2,9 @@ export default function AppFooter(){
 
     return(
 
-        <>
-            sono il footer
-        </>
+        <footer >
+            <hr />
+            <span>© 2025. Developed by Marcello</span>
+        </footer>
     )
 }
