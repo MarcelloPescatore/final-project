@@ -10,7 +10,7 @@ export default function VideogiochiPage() {
     const [inputText, setInputText] = useState('');
     const [searchText, setSearchText] = useState('');
 
-    
+
     /* funzione per votazione in stelle */
     const renderStars = (vote) => {
         const fromeOneToFive = Math.ceil(vote * 0.5)
@@ -126,97 +126,113 @@ export default function VideogiochiPage() {
         });
     };
 
+
+
     return (
-        <div className='d-flex justify-content-between px-5 my-5'>
-            {/* filter */}
-            <div className='col-2 pe-2 sidebar'>
-                <h2>Aggiungi Filtri</h2>
-                <ul className='my-3'>
-                    <li className='generi my-3'>
-                        <span className='fs-4'>Generi</span>
-                        <ul className='my-1'>
-                            {
-                                genereUnivoco.map((genere) => (
-                                    <li key={genere.id}>
-                                        <label>
-                                            <input
-                                                className='me-2'
-                                                type="checkbox"
-                                                checked={filtriSelezionati.generi.includes(genere.nome)}
-                                                onChange={() => handleFiltriChange('generi', genere.nome)}
-                                            />
-                                            {genere.nome}
-                                        </label>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </li>
-                    <li>
-                        <span className='fs-4'>Piattaforme</span>
-                        <ul className='my-1'>
-                            {
-                                consoleUnivoche.map((console) => (
-                                    <li key={console.id}>
-                                        <label>
-                                            <input
-                                                className='me-2'
-                                                type="checkbox"
-                                                checked={filtriSelezionati.piattaforme.includes(console.nome)}
-                                                onChange={() => handleFiltriChange('piattaforme', console.nome)}
-                                            />
-                                            {console.nome}
-                                        </label>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </li>
-                    <button className='btn btn-danger mt-3' onClick={resetFiltri}>RImuovi Filtri</button>
-                </ul>
-            </div>
-
-            <div className='d-flex flex-column col-10 '>
-                {/* search bar */}
-                <form
-                    className='d-flex justify-content-end align-items-center mb-5 gap-2'
-                    id='search-bar'
-                    onSubmit={handleSearch}
-                >
-                    <input
-                        type="text"
-                        className='col-5 rounded px-3 h-100'
-                        placeholder="Cerca videogiochi..."
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                    />
-                    <div className='d-flex gap-2 justify-content-end'>
-                        <button type="submit" className='btn btn-primary'>Cerca</button>
-                        <button type="button" className='btn btn-danger' onClick={handleCancelSearch}>Annulla</button>
-                    </div>
-                </form>
-
-                {/* card */}
-                <div className='d-flex mx-5 gap-5' >
-                    {
-                        videogiochiFiltrati.map((videogioco) => (
-                            <div className="card col-4 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >
-                                <img src={videogioco.copertinaUrl} alt="..." className='rounded' />
-                                <div className="card-body d-flex flex-column  justify-content-end py-4">
-                                    <div>
-                                        <h5 className="card-title">{videogioco.titolo}</h5>
-                                        <span>{renderStars(videogioco.voto)}</span>
-                                    </div>
-                                    <a href="#" className="btn btn-primary mt-3 fw-bold">Scopri di più</a>
-                                </div>
-                            </div>
-                        ))
-                    }
+        loading ? (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Caricamento...</span>
                 </div>
             </div>
+        ) : error ? (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <div className="alert alert-danger text-center fs-5 px-5 py-4" role="alert">
+                    Ci scusiamo per il disagio, si è verificato un errore. <br />
+                    Ricaricare la pagina, grazie.
+                </div>
+            </div>
+        ) : (
 
+            <div className='d-flex justify-content-between px-5 my-5'>
+                {/* filter */}
+                <div className='col-2 pe-2 sidebar'>
+                    <h2>Aggiungi Filtri</h2>
+                    <ul className='my-3'>
+                        <li className='generi my-3'>
+                            <span className='fs-4'>Generi</span>
+                            <ul className='my-1'>
+                                {
+                                    genereUnivoco.map((genere) => (
+                                        <li key={genere.id}>
+                                            <label>
+                                                <input
+                                                    className='me-2'
+                                                    type="checkbox"
+                                                    checked={filtriSelezionati.generi.includes(genere.nome)}
+                                                    onChange={() => handleFiltriChange('generi', genere.nome)}
+                                                />
+                                                {genere.nome}
+                                            </label>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </li>
+                        <li>
+                            <span className='fs-4'>Piattaforme</span>
+                            <ul className='my-1'>
+                                {
+                                    consoleUnivoche.map((console) => (
+                                        <li key={console.id}>
+                                            <label>
+                                                <input
+                                                    className='me-2'
+                                                    type="checkbox"
+                                                    checked={filtriSelezionati.piattaforme.includes(console.nome)}
+                                                    onChange={() => handleFiltriChange('piattaforme', console.nome)}
+                                                />
+                                                {console.nome}
+                                            </label>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </li>
+                        <button className='btn btn-danger mt-3' onClick={resetFiltri}>RImuovi Filtri</button>
+                    </ul>
+                </div>
 
-        </div>
-    )
+                {/* videogames list */}
+                <div className='d-flex flex-column col-10 '>
+                    {/* search bar */}
+                    <form
+                        className='d-flex justify-content-end align-items-center mb-5 gap-2'
+                        id='search-bar'
+                        onSubmit={handleSearch}
+                    >
+                        <input
+                            type="text"
+                            className='col-5 rounded px-3 h-100'
+                            placeholder="Cerca videogiochi..."
+                            value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <div className='d-flex gap-2 justify-content-end'>
+                            <button type="submit" className='btn btn-primary'>Cerca</button>
+                            <button type="button" className='btn btn-danger' onClick={handleCancelSearch}>Annulla</button>
+                        </div>
+                    </form>
+
+                    {/* card */}
+                    <div className='d-flex mx-5 gap-5' >
+                        {
+                            videogiochiFiltrati.map((videogioco) => (
+                                <div className="card col-4 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >
+                                    <img src={videogioco.copertinaUrl} alt="..." className='rounded' />
+                                    <div className="card-body d-flex flex-column  justify-content-end py-4">
+                                        <div>
+                                            <h5 className="card-title">{videogioco.titolo}</h5>
+                                            <span>{renderStars(videogioco.voto)}</span>
+                                        </div>
+                                        <a href="#" className="btn btn-primary mt-3 fw-bold">Scopri di più</a>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        ))
 }

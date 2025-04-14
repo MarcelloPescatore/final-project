@@ -12,6 +12,10 @@
     --cl-border: #585858;
 }
 
+.cl_text{
+    color: var(--cl-text);
+}
+
 body{
     min-height: 100vh;
 }
