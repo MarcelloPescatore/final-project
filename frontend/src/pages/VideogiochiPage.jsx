@@ -243,8 +243,8 @@ export default function VideogiochiPage() {
                     </div>
                     {
                         numeroMostrati < videogiochiFiltrati.length && (
-                            <div className='d-flex justify-content-center w-100 mt-4'>
-                                <button className='btn btn-outline-primary' onClick={mostraAltri}>
+                            <div className='d-flex justify-content-center w-100 mt-5'>
+                                <button className='btn btn-outline-primary btn btn-outline-primary fs-5 px-4 py-2' onClick={mostraAltri}>
                                     Mostra altri 20 risultati
                                 </button>
                             </div>

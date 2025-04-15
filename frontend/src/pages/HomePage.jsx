@@ -73,13 +73,15 @@ export default function HomePage() {
                                     ))
                                 }
                             </div>
+                            <div className='d-flex align-items-center justify-content-center mt-5'>
+                                {/* mostra di più */}
+                                <Link to={'/videogiochi'} className='fw-bold'>
+                                    <button className='btn btn-outline-primary fs-4 px-4 py-2'>
+                                        Vedi tutti
+                                    </button>
+                                </Link>
+                            </div>
 
-                            {/* mostra di più */}
-                            <a href="/videogiochi" className='fw-bold'>
-                                <button className='btn align-self-center btn-outline-primary col-2 mt-5'>
-                                    Vedi tutti
-                                </button>
-                            </a>
                         </div>
                     </div>
                 )}
