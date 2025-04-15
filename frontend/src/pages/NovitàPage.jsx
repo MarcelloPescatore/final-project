@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState, useEffect } from 'react'
 import DataContext from '../context/DataContext'
+import { Link } from 'react-router-dom';
 
 export default function NovitàPage() {
     const { data, loading, error } = useContext(DataContext);
@@ -25,8 +26,8 @@ export default function NovitàPage() {
         if (!data || data.length === 0) return [];
 
         return [...data]
-            .sort((a, b) => new Date(b.dataUscita) - new Date(a.dataUscita)) 
-            .slice(0, 5); 
+            .sort((a, b) => new Date(b.dataUscita) - new Date(a.dataUscita))
+            .slice(0, 5);
     }, [data]);
 
 
@@ -63,7 +64,9 @@ export default function NovitàPage() {
                                             <h5 className="card-title">{videogioco.titolo}</h5>
                                             <span>{renderStars(videogioco.voto)}</span>
                                         </div>
-                                        <a href="#" className="btn btn-primary mt-3 fw-bold">Scopri di più</a>
+                                        <Link to={`/videogioco/${videogioco.id}`}>
+                                            <button className="btn btn-primary mt-3 fw-bold">Scopri di più</button>
+                                        </Link>
                                     </div>
                                 </div>
                             ))

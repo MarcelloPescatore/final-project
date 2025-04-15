@@ -159,6 +159,20 @@ header{
     margin: 0 auto;
 }
 
+#videogioco_details{
+    color: var(--cl-text);
+     h2{
+        font-size: 40px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--cl-border);
+     }
+
+     p{
+        font-size: 22px;
+     }
+}
+
 footer{
     margin: 24px 48px;
     color: var(--cl-text);

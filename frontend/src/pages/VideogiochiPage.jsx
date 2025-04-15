@@ -1,4 +1,5 @@
 import { useContext, useMemo, useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import DataContext from '../context/DataContext'
 import logo from '../assets/images/logo.png'
 
@@ -226,13 +227,15 @@ export default function VideogiochiPage() {
                         {
                             videogiochiFiltrati.slice(0, numeroMostrati).map((videogioco) => (
                                 <div className="card col-4 card-videogioco rounded" style={{ width: '19rem' }} key={videogioco.id} >
-                                    <img src={videogioco.copertinaUrl ? videogioco.copertinaUrl : logo } alt="Copertina videogioco" className='rounded' />
+                                    <img src={videogioco.copertinaUrl ? videogioco.copertinaUrl : logo} alt="Copertina videogioco" className='rounded' />
                                     <div className="card-body d-flex flex-column  justify-content-end py-4">
                                         <div>
                                             <h5 className="card-title">{videogioco.titolo}</h5>
                                             <span>{renderStars(videogioco.voto)}</span>
                                         </div>
-                                        <a href="#" className="btn btn-primary mt-3 fw-bold">Scopri di più</a>
+                                        <Link to={`/videogioco/${videogioco.id}`}>
+                                            <button className="btn btn-primary mt-3 fw-bold">Scopri di più</button>
+                                        </Link>
                                     </div>
                                 </div>
                             ))
