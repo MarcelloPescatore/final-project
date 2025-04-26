@@ -10,18 +10,27 @@ export default function VideogiocoDetails() {
 
     /* funzione per votazione in stelle */
     const renderStars = (vote) => {
-        const fromeOneToFive = Math.ceil(vote * 0.5)
-        const stars = []
+        const fullStars = Math.floor(vote);
+        const hasHalfStar = vote % 1 >= 0.5;
+        const emptyStars = 5 - Math.ceil(vote);
+        const stars = [];
 
-        for (let i = 1; i <= 5; i++) {
-            if (i <= fromeOneToFive) {
-                stars.push(<i key={i} className="bi bi-star-fill text-warning me-2"></i>);
-            } else {
-                stars.push(<i key={i} className="bi bi-star text-warning me-2"></i>);
-            }
+        // Aggiungi le stelle piene
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<i key={`full-${i}`} className="bi bi-star-fill text-warning me-2"></i>);
         }
 
-        return stars
+        // Aggiungi la mezza stella, se presente
+        if (hasHalfStar) {
+            stars.push(<i key="half" className="bi bi-star-half text-warning me-2"></i>);
+        }
+
+        // Aggiungi le stelle vuote
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<i key={`empty-${i}`} className="bi bi-star text-warning me-2"></i>);
+        }
+
+        return stars;
     }
 
 
@@ -44,13 +53,13 @@ export default function VideogiocoDetails() {
                 {
                     videogioco ? (
                         <div className="d-flex w-100 gap-5" id='videogioco_details'>
-                            <div className="col-6 d-flex flex-column justify-content-start align-self-center">
+                            <div className="col-6 d-flex flex-column justify-content-start">
                                 <h2>{videogioco.titolo}</h2>
                                 <p><strong>Genere:</strong> {videogioco.generi.map(genere => genere.nome).join(", ")}</p>
                                 <p><strong>Piattaforme:</strong> {videogioco.console.map(console => console.nome).join(", ")}</p>
                                 <p><strong>Data di uscita:</strong> {videogioco.dataUscita}</p>
                                 <div className="mb-3">
-                                    {renderStars(videogioco.voto)}
+                                    {renderStars(videogioco.voto)} <span>({videogioco.voto})</span>
                                 </div>
                                 <p>{videogioco.descrizione}</p>
                             </div>

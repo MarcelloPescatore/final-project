@@ -178,6 +178,14 @@ header{
     }
 }
 
+.notFound{
+    color: var(--cl-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 footer{
     margin: 24px 48px;
     color: var(--cl-text);

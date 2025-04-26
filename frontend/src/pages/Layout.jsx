@@ -8,7 +8,7 @@ export default function Layout() {
     return (
         <>
             <AppHeader />
-            <div className="flex-grow-1">
+            <div className="d-flex flex-grow-1">
                 <Outlet />
             </div>
             <AppFooter />
