@@ -160,7 +160,7 @@ export default function VideogiochiPage() {
             </div>
         ) : (
 
-            <div className='d-flex justify-content-between px-5 my-5'>
+            <div className='d-flex justify-content-between px-5 my-5 col-12'>
                 {/* filter */}
                 <div className='col-2 pe-2 sidebar'>
                     <h2>Aggiungi Filtri</h2>
