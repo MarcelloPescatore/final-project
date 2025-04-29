@@ -36,13 +36,13 @@ export default function VideogiocoDetails() {
 
     return (
         loading ? (
-            <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="d-flex justify-content-center align-items-center col-12 vh-100">
                 <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Caricamento...</span>
                 </div>
             </div>
         ) : error ? (
-            <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="d-flex justify-content-center align-items-center col-12 vh-100">
                 <div className="alert alert-danger text-center fs-5 px-5 py-4" role="alert">
                     Ci scusiamo per il disagio, si è verificato un errore. <br />
                     Ricaricare la pagina, grazie.
