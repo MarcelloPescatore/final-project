@@ -6,7 +6,7 @@ export default function VideogiocoDetails() {
     const { id } = useParams();
     const { data, loading, error } = useContext(DataContext);
 
-    const videogioco = data.find((videogioco) => videogioco.id == id);
+    const videogioco = data.find((videogioco) => videogioco.id == id); // sistema questa parte
 
     /* funzione per votazione in stelle */
     const renderStars = (vote) => {
